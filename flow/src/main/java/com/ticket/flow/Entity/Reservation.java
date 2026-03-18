@@ -2,7 +2,9 @@ package com.ticket.flow.Entity;
 
 import com.ticket.flow.Enum.ReservationStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Reservation {
     // 예약에서 알아야 할 정보들
     // 1. 예약자
