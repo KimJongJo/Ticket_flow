@@ -1,5 +1,7 @@
 package com.ticket.flow.Service;
 
+import com.ticket.flow.DTO.EventCreateRequest;
+import com.ticket.flow.DTO.ResponseEvent;
 import com.ticket.flow.Entity.Event;
 import com.ticket.flow.Repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +16,21 @@ public class EventServiceImpl implements EventService{
     private final EventRepository eventRepository;
 
     @Override
-    public Event createEvent(Event event) {
+    public ResponseEvent createEvent(EventCreateRequest event) {
 
-        return eventRepository.save(event);
+        Event savedEvent = eventRepository.save(
+                Event.builder()
+                        .title(event.getTitle())
+                        .eventTime(event.getEventTime())
+                        .venue(event.getVenue())
+                        .build());
+
+        return ResponseEvent.builder()
+                .id(savedEvent.getId())
+                .title(savedEvent.getTitle())
+                .eventTime(savedEvent.getEventTime())
+                .venue(savedEvent.getVenue())
+                .build();
     }
 
     @Override

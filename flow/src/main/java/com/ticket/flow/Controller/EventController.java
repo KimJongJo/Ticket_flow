@@ -1,5 +1,7 @@
 package com.ticket.flow.Controller;
 
+import com.ticket.flow.DTO.EventCreateRequest;
+import com.ticket.flow.DTO.ResponseEvent;
 import com.ticket.flow.Entity.Event;
 import com.ticket.flow.Service.EventService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +20,8 @@ public class EventController {
 
     // 이벤트 생성
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        Event savedEvent = eventService.createEvent(event);
+    public ResponseEntity<ResponseEvent> createEvent(@RequestBody EventCreateRequest event) {
+        ResponseEvent savedEvent = eventService.createEvent(event);
 
         URI location = URI.create("/events/" + savedEvent.getId());
 

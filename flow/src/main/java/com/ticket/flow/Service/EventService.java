@@ -1,11 +1,13 @@
 package com.ticket.flow.Service;
 
+import com.ticket.flow.DTO.EventCreateRequest;
+import com.ticket.flow.DTO.ResponseEvent;
 import com.ticket.flow.Entity.Event;
 
 import java.util.List;
 
 public interface EventService {
-    Event createEvent(Event event);
+    ResponseEvent createEvent(EventCreateRequest event);
 
     List<Event> findAll();
 

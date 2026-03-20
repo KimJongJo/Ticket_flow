@@ -1,26 +1,18 @@
-package com.ticket.flow.Entity;
+package com.ticket.flow.DTO;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
-public class Event {
+public class ResponseEvent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "title")
     private String title;
-
     private LocalDateTime eventTime;
     private String venue;
-
 }
