@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -24,6 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 public class TicketServiceTest {
 
     private Long testUserId;
@@ -41,6 +43,9 @@ public class TicketServiceTest {
     // 테스트 실행 전 DB를 깨끗이 비우고 필요한 데이터를 생성합니다.
     @BeforeEach
     void setUp() {
+
+        // 기존 데이터 지우지 않고, 테스트 데이터들을 만들어서 사용하기
+
         // 기존 데이터 삭제 (외래키 제약이 있다면 순서 주의)
         reservationRepository.deleteAll();
         seatRepository.deleteAll();
@@ -95,7 +100,7 @@ public class TicketServiceTest {
                     successCount.incrementAndGet();
                 } catch (Exception e) {
                     failCount.incrementAndGet();
-                    // 0명이 성공할 경우, 원인을 파악하기 위해 에러 로그를 한 번만 찍어봅니다.
+                    // 0명이 성공할 경우, 원인을 파악하기 위해 에러 로그를 한 번만 찍어본다.
                     if (failCount.get() == 1) {
                         System.out.println("### 첫 번째 실패 원인: " + e.getMessage());
                     }
