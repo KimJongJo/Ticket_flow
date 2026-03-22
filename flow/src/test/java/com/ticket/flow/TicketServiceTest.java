@@ -46,20 +46,20 @@ public class TicketServiceTest {
         seatRepository.deleteAll();
         guestRepository.deleteAll();
 
-        // 1. 유저(Guest) 생성 (ID: 1L)
+        // 1. 유저(Guest) 생성
         Guest guest = Guest.builder()
                 .name("김종조")
                 .build();
         Guest savedGuest = guestRepository.save(guest); // DB가 생성해준 ID가 담긴 객체
 
-        // 2. 좌석(Seat) 생성 (ID를 지정하지 않고 저장)
+        // 2. 좌석(Seat) 생성
         Seat seat1 = Seat.builder().status(SeatStatus.AVAILABLE).build();
         Seat seat2 = Seat.builder().status(SeatStatus.AVAILABLE).build();
         Seat savedSeat1 = seatRepository.save(seat1);
         Seat savedSeat2 = seatRepository.save(seat2);
 
         // 3. 테스트에서 사용할 실제 ID들을 변수에 저장
-        this.testUserId = savedGuest.getId(); // 클래스 멤버 변수로 선언해두면 편리합니다.
+        this.testUserId = savedGuest.getId();
         this.testSeatIds = List.of(savedSeat1.getId(), savedSeat2.getId());
     }
 
@@ -106,6 +106,8 @@ public class TicketServiceTest {
         }
 
         latch.await();
+        executorService.shutdown();
+
 
         System.out.println("최종 성공 횟수 : " + successCount.get());
         System.out.println("최종 실패 횟수 : " + failCount.get());

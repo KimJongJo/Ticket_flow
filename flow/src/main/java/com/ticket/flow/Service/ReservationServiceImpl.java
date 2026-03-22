@@ -36,7 +36,7 @@ public class ReservationServiceImpl implements ReservationService{
 
         // 예약을 할 때 좌석의 상태가 이미 예약된 상태인지 확인을 해서 AVAILAVLE 상태면 예약 처리후 RESERVED로 상태 변경
         // 좌석을 조회할 때 for문으로 조회하면 좌석 개수만큼 DB조회를 하기 때문에 List 조회 방식으로 DB에 한번만 조회하기
-        List<Seat> seats = seatRepository.findAllByIdInWithLock(request.getSeatIds()); // -> IN 사용
+        List<Seat> seats = seatRepository.findAllById(request.getSeatIds()); // -> IN 사용
 
         // 상태 검증
         // anyMatch => 하나라도 맞으면 즉시 true 반환

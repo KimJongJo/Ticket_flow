@@ -1,5 +1,6 @@
 package com.ticket.flow.Controller;
 
+import com.ticket.flow.DTO.RequestCreateSeat;
 import com.ticket.flow.Entity.Seat;
 import com.ticket.flow.Service.SeatService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class SeatController {
 
     // 좌석 생성
     @PostMapping
-    public ResponseEntity<Seat> createSeat(@RequestBody Seat seat){
+    public ResponseEntity<Seat> createSeat(@RequestBody RequestCreateSeat seat){
 
         Seat savedSeat = seatService.createSeat(seat);
 
