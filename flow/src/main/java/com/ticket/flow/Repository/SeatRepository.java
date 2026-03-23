@@ -12,8 +12,9 @@ import java.util.List;
 public interface SeatRepository extends JpaRepository<Seat, Long> {
     List<Seat> findByEventId(Long eventId);
 
-    // 조회할 때 해당 로우(Row)를 다른 트랜잭션이 건드리지 못하게 잠급니다.
-//    @Lock(LockModeType.PESSIMISTIC_WRITE)
-//    @Query("select s from Seat s where s.id in :ids")
-//    List<Seat> findAllByIdInWithLock(@Param("ids") List<Long> ids);
+    // 사용자들의 read는 허용, write는 대기
+    // 좌석 목록을 봐야하기 때문에 해당 좌석을 예약하려고 할 때만 락 걸기
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select s from Seat s where s.id in :ids")
+    List<Seat> findAllByIdInWithLock(@Param("ids") List<Long> ids);
 }
